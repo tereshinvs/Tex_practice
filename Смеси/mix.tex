@@ -1,0 +1,100 @@
+\documentclass[11pt]{article}
+
+\usepackage{a4wide}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{mathtools}
+
+\newtheorem{theorem}{Теорема}
+
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}{\hbox{$\mathsurround=0pt #1$}}{}}
+\newcommand\abs[1]{\left\lvert#1\right\rvert}
+\newcommand{\scalar}[2]{\left<#1,#2\right>}
+
+%\renewcommand{\theequation}{\textbf{(\arabic{equation})}}
+
+\begin{document}
+\section{Определение смеси}
+Рассмотрим $F(x, y)$, определённую на мн-ве $\mathbb{R} \times 	\wp $. $ \wp \subseteq \mathbb{R}^m$.
+На $\wp$ есть борелевская сигма-алгебра $\Sigma$. При каждом фиксированном $y$ $F(x, y)$ - функция распределения по $x$, а при каждом $x$ $F(x, y)$ измерима по $y$. Пусть $\mathsf{Q}$ - вероятностная мера на измеримом пространстве $\left( \wp, \Sigma \right)$.
+
+По определению смесь функции распределения $F(x, y)$ по $\wp$ относительно $\mathsf{Q}$ это:
+$$
+H(x) = \int\limits_{\wp} F(x, y)\mathsf{Q}(dy), \; x \in \mathbb{R}.
+$$
+$F(x, y)$ - смешиваемое распределение, $\mathsf{Q}$ - смешивающее
+
+$Y$ - m-мерная тождественная случайная величина на вероятностном пр-ве $\left( \wp, \Sigma, \mathsf{Q} \right)$
+$$
+\Rightarrow H(x) = \mathsf{E}F(x, Y)
+$$
+Если $f(x, Y) = \dfrac{d}{dx}F(x, Y)$ - плотность, то смеси $H(x)$ соответствует плотность
+$$
+h(x) = \mathsf{E}f(x, Y) = \int\limits_{\wp} f(x, y)\mathsf{Q}(dy), \; x \in \mathbb{R}.
+$$
+Если у Y дискретное распределение со значениями $y_1, y_2, \ldots$ с вероятностями $p_1, p_2, \ldots$, то
+$$
+H(x) = \mathsf{E}F(x, Y) = \sum\limits_{j \geqslant 1} p_j F(x, y_j), \; x \in \mathbb{R},
+$$
+эта смесь называется дискретной. $F(x, y_j)$ - компоненты смеси, $p_j$ - веса компонент. Бывают конечные дискретные смеси.
+Для дискретных:
+$$
+h(x) = \mathsf{E}f(x, Y) = \sum\limits_{j \geqslant 1} p_j f(x, y_j).
+$$
+Отметим, что разным $y$ могут соответствовать разные распределения $F(x, y)$.
+
+В дальнейшем особую роль будут играть сдвиг/масштабные смеси:
+Пусть $m = 2, y = (u, v), u > 0, v \in \mathbb{R} \; \Rightarrow F(x, y) = F\left(\frac{x - v}{u}\right)$
+$$
+\Rightarrow H(x) = \int\limits_{\wp} F\left( \dfrac{x - v}{u} \right) Q(du, dv),
+$$
+что называется сдвиг-масштабной смесью.
+
+Пример: есть популяция, в ней k субпопуляций. Некоторый признак распределён в j-ой популяции с $F_j(x) \equiv F(x, y_j)$ - условная вероятность того, что величина наблюдаемого признака меньше $x$, при том, что случайно выбранный индивидуум из j-ой субпопуляции. Пусть вероятность выбора представителя j-ой субпопуляции $p_j$. Тогда
+$$
+H(x) = \sum\limits_{j = 1}^{k} p_j F_j(x).
+$$
+Операция смешивания позволила интерпретировать неоднородную популяцию как однородную.
+
+\section{Инентифицируемость смесей вероятностных распределений}
+Пусть $F(x,y)$ определена на $\mathbb{R} \times \wp$. Предполагаем то же самое, что и в п.1. \\
+Пусть $\mathcal{Q}$ - семейство случайных величин со значениями в $\wp$. Обозначим
+$$
+\mathcal{H} = \left\{ H_Q(x) = \mathsf{E}F(x, Q), x \in \mathsf{R} : Q \in \mathcal{Q} \right\}.
+$$
+Семейство $\mathcal{H}$, определяемое $F$ и $\mathcal{Q}$, называется идентифицируемым, если из равенства
+$$
+\mathsf{E}F(x, Q_1) = \mathsf{E}F(x, Q_2)
+$$
+с $Q_1, Q_2 \in \mathcal{Q}$ следует, что $Q_1 =^d Q_2$.
+Например, идентифицируемыми являются смеси нормальных, показательных, пуассоновских и распределений Коши. Сушествуют и неидентифицируемые распределения.
+
+Опред. $\left\{ F(x, y) : y > 0 \right\}$ называется аддитивно замкнутым, если $\forall y_1 > 0, y_2 > 0$ справедливо
+$$
+F(x, y_1) \ast F(x, y_2) \equiv F(x, y_1 + y_2).
+$$
+$$
+F_1(x) \ast F_2(x) = \int\limits_{-\infty}^{\infty} F_1(x - y)dF_2(y) = \int\limits_{-\infty}^{\infty} F_2(x - y)dF_1(y).
+$$
+
+\textbf{Теорема} Семейство данных смесей функций распределения $F(x, \cdot)$ из аддитивно замкнутого семейства является идентифицируемым.
+
+\textbf{Теорема} Пусть $F(x, y) = F(xy), y \geqslant 0, F(0) = 0$. Предположим, что преобразование Фурье функции $G^{*}(y) = F(e^y), y \geqslant 0$ нигде не обрашается в 0. Тогда семейство смесей
+$$
+\mathcal{H} = \left\{ H_Q(x) = \mathsf{E}F(xQ), x \geqslant 0 : \mathsf{P}(Q > 0) = 1 \right\} 
+$$
+идентифицируемо.
+
+\textbf{Теорема} Пусть $\mathcal{Q}$ - множество всех случайных величин. Семейство сдвиговых смесей
+$$
+\mathcal{H} = \left\{ H_Q(x) = \mathsf{E}F(x - Q), x \in \mathbb{R} : Q \in \mathcal{Q} \right\},
+$$
+идентифицируемо, если характеристическая функция, соответствующая функции распределения $F(x)$, нигде не обращается в 0.
+
+\textbf{Теорема} Семейство конечных сдвиг/масштабных смесей нормальных законов идентифицируемо.
+\end{document}

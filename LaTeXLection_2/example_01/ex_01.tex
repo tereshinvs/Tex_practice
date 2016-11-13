@@ -1,0 +1,146 @@
+%
+%
+% 	Пример 01
+%
+
+%
+%	С этой команды начинается каждый документ LaTeX: она задаёт общие настройки формата документа
+%	Формат бумаги А4, 12й кегль (размер шрифта)
+%
+\documentclass[a4paper,12pt]{article}
+
+%
+%	Эти две команды подключают локализацию
+%
+\usepackage[utf8]{inputenc}			% Кодировка символов --- Юникод.
+\usepackage[english, russian]{babel}		% Язык: шрифты, переносы и т.д.
+
+%
+%	Эти команды регулируют внешний вид документа
+%
+
+\usepackage{indentfirst}	% Абзацный отступ после начала глав и разделов
+\usepackage{a4wide}		% Сужает поля
+
+%
+%	Эти команды подключают много полезного для работы с формулами
+%
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+
+%
+%	Для наглядности в этом тексте некоторые его части будут заключены в рамки.
+%	Следующая команда это реализует.
+%
+\newcommand{\example}[1]{%
+	\fbox{\parbox{0.9\textwidth}{#1}}
+}
+
+%
+%	В одном из примеров будет использоваться скалярное произведение. Это команда задаёт его
+%
+\newcommand{\scalar}[2]{\left<#1,#2\right>}
+%
+%	Основное тело документа
+%
+\begin{document}
+%
+%	Варианты окружений <<со звёздочкой>> не оставляют после себя номеров
+%
+\section{Окружение \texttt{gather}}
+Несколько подряд идущих \verb:$$::
+
+\example{
+$$
+ F(x(\cdot),u(\cdot))\to\min,
+$$
+$$
+\dot{x}(t) = f(x(t), u(t), t),
+$$ $$
+x(t_0) = x_0,
+$$ $$
+u(t)\in \mathcal{P}(t).
+$$
+}
+
+При помощи \texttt{gather}:
+
+\example{
+\begin{gather}
+F(x(\cdot),u(\cdot))\to\min,\\
+\dot{x}(t) = f(x(t), u(t), t),\label{AA}\\
+ x(t_0) = x_0,\notag\\
+u(t)\in \mathcal{P}(t).
+\end{gather}}
+
+\eqref{AA}
+\section{Окружение \texttt{multline}}
+\begin{multline}
+J(u_k) - J(v_k) =\\= 
+\int\limits_{t_0}^T\scalar{u_k(\tau)}{u_k(\tau)}d\tau - \int\limits_{t_0}^T\scalar{\alpha_k\overline{u}(\tau) + (1-\alpha_k)u_k}{\alpha_k\overline{u}(\tau) + (1-\alpha_k)u_k}d\tau =\\=  
+(2\alpha_k - \alpha_k^2)\int\limits_{t_0}^{T}\scalar{u_k(\tau)}{u_k(\tau)}d\tau - \biggl(2\alpha_k(1-\alpha_k)\int\limits_{t_0}^{T}\scalar{\overline{u}(\tau)}{u_k(\tau)}d\tau  \leqslant\\
+\leqslant \left(|(2\alpha_k - \alpha_k^2)| R^2\biggr) + 2\alpha_k|(1-\alpha_k)|R^2 + \alpha_k^2R^2\right) \to 0,\ k\to\infty,
+\end{multline}
+
+\section{Системы уравнений}
+Окружение \texttt{gather}:
+\begin{gather*}
+ (2- \alpha)x + 8y^2 = 8,\ (\text{из уравнения состояния})\\
+3x + \dfrac{\alpha}{8}y = 2\ (\text{свойство консервативности системы}). 
+\end{gather*}
+
+
+Окружение \texttt{align}:
+\begin{align}
+(2- \alpha)x + 8y^2 &= 8 &(\text{из уравнения состояния})\\
+3x + \dfrac{\alpha}{8}y &= 2 &(\text{свойство консервативности системы}) 
+\end{align}
+
+Команда \texttt{aligned}:
+$$
+(x- 4y^3 -9)(e^x + 2y -3) = 0\ \Longleftrightarrow \left[\begin{aligned}
+                                    x- 4y^3 &= 9,\\
+				     e^x + 2y &= 3.
+                                    \end{aligned}\right.
+$$
+
+Окружением \texttt{eqnarray} пользоваться не рекомендуется.
+
+\section{Ситуации <<или--или>>}
+Окружение \texttt{aligned}:
+$$
+I(x,A) = \left\lbrace\begin{aligned}
+          1, &\ x\in A,\\
+	  0, &\ x\notin A.
+         \end{aligned}\right.
+$$
+Окружение \texttt{cases}:
+$$
+I(x,A) = \begin{cases}
+          1, & x\in A,\\
+	  0, & x\notin A.
+         \end{cases}
+$$
+\section{Матрицы}
+Окружение \texttt{aligned}:
+$$
+\left[\begin{aligned}
+          1\ & 2\ & 3\\
+	  1\ & 2\ & 3
+         \end{aligned}\right]
+$$
+Окружение \texttt{pmatrix}. \texttt{bmatrix}:
+$$
+ \begin{bmatrix}
+          1 & 2 & 3\\
+	  0 & 2 & 3
+ \end{bmatrix},\ 
+ \begin{pmatrix}
+          1 & 2 & 3\\
+	  0 & 2 & 3
+ \end{pmatrix}
+$$
+\end{document} 

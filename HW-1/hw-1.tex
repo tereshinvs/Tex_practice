@@ -1,0 +1,106 @@
+\documentclass[11pt]{article}
+
+\usepackage{a4wide}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\newtheorem{theorem}{Теорема}
+
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}{\hbox{$\mathsurround=0pt #1$}}{}}
+\newcommand\abs[1]{\left\lvert#1\right\rvert}
+\newcommand{\scalar}[2]{\left<#1,#2\right>}
+
+\begin{document}
+\thispagestyle{empty}
+
+\begin{center}
+\ \vspace{-3cm} \newline
+\includegraphics[width=0.5\textwidth]{msu.eps}\\
+{\scshape Московский государственный университет имени М.~В.~Ломоносова}\\
+Факультет вычислительной математики и кибернетики\\
+Кафедра системного анализа
+
+\vfill
+{\LARGE Отчёт по практикуму} \newline
+%\vspace{1cm}
+{\Huge\bfseries <<Создание титульной страницы>>}
+\end{center}
+
+\vspace{1cm}
+\begin{flushright}
+\large
+\textit{Студент 315 группы}\\
+В.~С.~Терёшин\\
+%\vspace{5mm}
+%\textit{Руководитель практикума}\\
+%к.ф.-м.н., доцент П.~П.~Петров
+\end{flushright}
+
+\vfill
+\begin{center}
+Москва, 2013
+\end{center}
+
+\pagebreak
+\section{Информация о системе}
+Данный документ выполнен с использованием \texttt{pdfTeX 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian)}
+в \texttt{Sublime Text 2} на \texttt{Ubuntu 13.10 Desktop x64}.
+
+\section{Леммы и теоремы}
+
+\subsection{Математический анализ}
+\begin{theorem}[Неравенство Гёльдера]
+Пусть $a_1,a_2,\ldots,a_n$ и $b_1,b_2,\ldots,b_n$ --- произвольные неотрицательные вещественные числа. Тогда
+$$ \sum\limits_{i=1}^{n}a_i b_i \leqslant
+\left( \sum\limits_{i=1}^{n} a_i^p \right)^{\frac{1}{p}}
+\left( \sum\limits_{i=1}^{n} b_i^q \right)^{\frac{1}{q}} ,$$
+где $\frac{1}{p}+\frac{1}{q}=1, \ p \geqslant 1, \ q \geqslant 1$.
+\end{theorem}
+
+\subsection{Линейная алгебра}
+\begin{theorem}[Неравенство Коши--Буняковского]
+Для любых векторов $x, y \in E(U)$ имеет место неравенство
+$$ \abs{\scalar{x}{y}}^2 \leqslant \scalar{x}{x} \scalar{y}{y} $$
+или, в другой форме,
+$$  \left\lvert \begin{array}{ccc}
+		\scalar{x}{x} & \scalar{x}{y} \\
+		\scalar{y}{x} & \scalar{y}{y}
+	\end{array} \right\rvert \geqslant 0 .
+$$
+\end{theorem}
+
+\subsection{Дифференциальные уравнения}
+\begin{theorem}[Общее решение неоднородной системы]
+Для любого $t_0 \in [a,b]$ формула
+$$ \overline{y}_H(t) = \int\limits_{t_0}^{t} Z(t, \tau) \overline{f}(t) \, d\tau, \;\;\;\;\; t \in [a,b] $$
+задаёт частное решение неоднородной системы
+$$ \frac{d\overline{y}(t)}{dt} = A(t)\overline{y}(t) + \overline{f}(t), \;\;\;\;\; t \in [a,b],$$
+удовлетворяющее условию $ \overline{y}_H(0)=0 $.
+\end{theorem}
+
+\subsection{Теория вероятностей}
+\begin{theorem}[Локальная предельная теорема Муавра--Лапласа]
+Пусть $S_n$ --- число успехов в $n$ испытаниях Бернулли с вероятностью успеха $p$. Если $np(1-p) \xrightarrow[n \to \infty]{} 1$,
+то
+$$ \forall m \in \mathbb{Z}: 0 \leqslant m \leqslant n \;\;\;\;\; \mathsf{P}(S_n=m) = \frac{1}{\sqrt[]{2\pi}\sigma}e^{-\frac{x^2}{2}}
+\left( 1 + \underline{\mathsf{O}} \left( \frac{1}{\sigma} \right) \right) ,$$
+где $ x = \frac{m - np}{\sigma}$, а $\sigma = \, \sqrt[]{\mathsf{D}S_n} = \, \sqrt[]{np(1-p)}$.
+\end{theorem}
+
+\subsection{Дискретная математика}
+\begin{theorem}[Формула Эйлера]
+Для любой планарной реализации связного планарного графа $G=(V, E)$ с $q$ вершинами, $p$ рёбрами и $r$ гранями выполняется равенство: $p \hm- q \hm+ r \hm= 2$.
+\end{theorem}
+
+\begin{thebibliography}{99}
+	\bibitem{Ilyin} Ильин~В.~А., Садовничий~В.~А., Сендов~Бл.~Х. Математический анализ. Начальный курс. Издание второе. М.:~Моск. ун-та, 1985.
+	\bibitem{Kim} Ильин~В.~А., Ким~Г.~Д. Линейная алгебра и аналитическая геометрия: Учебник. М.:~Моск. ун-та, 1998.
+	\bibitem{Denisov} Денисов~А.~М., Разгулин~А.~В. Обыкновенные дифференциальные уравнения. Часть 1. 2009.
+	\bibitem{Ulyanov} Лекции Ульянова.
+	\bibitem{Alekseev} Алексеев~В.~Б., Поспелов~А.~Д. Дискретная математика (II семестр). 2002.
+\end{thebibliography}
+\end{document}

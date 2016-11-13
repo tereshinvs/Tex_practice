@@ -1,0 +1,104 @@
+%
+%
+% 	Пример 02
+%
+
+%
+%	С этой команды начинается каждый документ LaTeX: она задаёт общие настройки формата документа
+%	Формат бумаги А4, 12й кегль (размер шрифта)
+%
+\documentclass[a4paper,12pt]{article}
+
+%
+%	Эти две команды подключают локализацию
+%
+\usepackage[utf8]{inputenc}			% Кодировка символов --- Юникод.
+\usepackage[english, russian]{babel}		% Язык: шрифты, переносы и т.д.
+
+%
+%	Эти команды регулируют внешний вид документа
+%
+
+\usepackage{indentfirst}	% Абзацный отступ после начала глав и разделов
+\usepackage{a4wide}		% Сужает поля
+
+%
+%	Эти команды подключают много полезного для работы с формулами
+%
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+%
+%	Тут мы задаём команды для теорем и определений, 
+%	используя стандартные стили оформления
+%
+\theoremstyle{definition}
+\newtheorem{defin}{Определение}
+\theoremstyle{remark}
+\newtheorem{rmk}{Замечание}
+\theoremstyle{theorem}
+\newtheorem{thm}{Теорема}
+\newtheorem{lem}{Лемма}
+
+%
+%	Задаём собственный стиль оформления
+%
+
+\newtheoremstyle{SovietTheorem}% name of the style to be used
+  {3pt}% measure of space to leave above the theorem. E.g.: 3pt
+  {3pt}% measure of space to leave below the theorem. E.g.: 3pt
+  {\itshape}% name of font to use in the body of the theorem
+  {\parindent}% measure of space to indent
+  {\bfseries}% name of head font
+  {.}% punctuation between head and body
+  {.5em}% space after theorem head; " " = normal interword space
+  {}
+
+\theoremstyle{SovietTheorem}
+\newtheorem{sthm}{Теорема}
+
+%
+%	Основное тело документа
+%
+\begin{document}
+%
+%	Варианты окружений <<со звёздочкой>> не оставляют после себя номеров
+%
+\noindent Последняя строчка текста до определения.
+\begin{defin}\label{separDefin}
+Пространство называется сепарабельным, если в нём существует счётное всюду плотное множество.
+\end{defin}
+Первая строчка после определения.
+
+\noindent Последняя строчка текста до замечания.
+\begin{rmk}
+Существуют пространства, не являющиеся сепарабельными. Иногда свойство из определения \ref{separDefin} добавляют к определению гильбертового пространства.
+\end{rmk}
+Первая строчка после замечания.
+\begin{equation}\label{Taylor}
+f(x) = f(x_0) + f'(x_0)(x-x_0) + \dfrac{1}{2}f''(x_0)(x-x_0)^2 + o(x^2).
+\end{equation}
+\noindent Последняя строчка текста до теоремы.
+\begin{thm}
+Любой, прочитавший текст определения \ref{separDefin}, знает, что такое сепарабельное пространство. Всякий, кто видел формулу \eqref{Taylor}, вспомнил ряд Тейлора.
+\end{thm}
+\begin{proof}
+ Очевидно.
+\end{proof}
+Первая строчка после теоремы.
+
+\noindent Последняя строчка текста до леммы.
+\begin{lem}
+Матричное уравнение $AX - BX = C$ имеет единственное решение для любой правой части $C$ тогда и только тогда, когда у матриц $A$ и $B$ нет общих собственных чисел.
+\end{lem}
+Первая строчка после леммы.
+
+\noindent Последняя строчка текста до теоремы нового типа.
+\begin{sthm}
+Отечественный стиль оформления теорем, во-первых, ставит абзацный отступ перед словом <<Теорема>>, и, во-вторых, уменьшает объём пустого места до и после текста теоремы.
+\end{sthm}
+Первая строчка текста после теоремы нового типа.
+
+\end{document} 

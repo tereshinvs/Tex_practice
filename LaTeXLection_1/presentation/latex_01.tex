@@ -1,0 +1,221 @@
+\documentclass[ucs, mathserif]{beamer}
+\usepackage[utf8x]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{indentfirst}
+
+\RequirePackage{paralist}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amscd}
+\usepackage{bm}
+
+\newcommand*{\HM}[1]{#1\nobreak\discretionary{}{\hbox{$\mathsurround=0pt #1$}}{}}
+
+\usetheme[alternativetitlepage=true, titleline=true, bullet=circle]{Torino}
+\logo{\includegraphics[height=30px]{msu}}
+
+\usepackage{ragged2e}
+\justifying
+\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+
+\title[Первая лекция по \LaTeX]{Основы работы в \LaTeX}
+\author[Кафедра СА]{Кафедра системного анализа}
+\institute{МГУ им. М.В. Ломоносова \\ Факультет вычислительной математики и кибернетики}
+\date{Сентябрь 2013}
+
+\begin{document}
+\maketitle
+%
+%
+%
+\begin{frame}{Что такое \LaTeX? (Взгляд снаружи)}
+\begin{itemize}
+ \item \LaTeX\ --- система подготовки (вёрстки) текстов на базе \TeX.
+ \item \LaTeX\ <<заточен>> для простой работы с формулами и ссылками.
+ \item \LaTeX\ реализован на всех платформах и распространяется абсолютно бесплатно.
+ \item \LaTeX\ является де-факто международным стандартом для подготовки и представления естественнонаучных текстов.
+\end{itemize}
+ 
+\end{frame}
+%
+%
+%
+\begin{frame}{Что такое \LaTeX? (Взгляд изнутри)}
+\begin{itemize}
+ \item \LaTeX\ --- язык описания и разметки содержимого документа. 
+ \item \LaTeX\ --- не WYSIWYG. Разделяются файлы \emph{исходного кода} (создаваемого пользователем) и файлы результирующего \emph{документа} (создаваемые из исходников транслятором).  
+ \item Возможности \LaTeX\ существенно зависят от \emph{библиотеки пакетов}, предоставляемой конкретным \emph{дистрибутивом}.
+ \item Процесс транслирования исходного кода в документ осуществляется в один проход. Подавляющее большинство команд языка --- \emph{макросы}.
+\end{itemize}
+ 
+\end{frame}
+%
+%
+%
+\begin{frame}{Литература}
+\begin{thebibliography}{99}
+ \bibitem{newllang} Львовский~С.~М. \emph{Набор и верстка в системе \LaTeX.} М.:~МЦНМО, 2007.
+ \bibitem{stol} Столяров~А~В. \emph{Сверстай диплом красиво: \LaTeX\ за три дня.} М.:~Макс Пресс, 2010.
+ \bibitem{GM} Гуссенс M., Миттельбах  Ф., Самарин А. \emph{Путеводитель по пакету \LaTeX\ и его расширениям.} М.: Мир, 1999.
+\end{thebibliography}
+\end{frame}
+
+%
+%
+%
+\begin{frame}{Дистрибутивы}
+
+Дистрибутив предоставляет набор трансляторов (программы \texttt{latex}, \texttt{pdflatex}), конвертеров (\texttt{dvips}, \texttt{ps2pdf}), библиотеку шрифтов и пакетов, а также другие полезные утилиты (просмотрщики, программы для работы с базами ссылок и т.д.)
+
+Основные дистрибутивы:
+\begin{description}
+ \item[UNIX.] TeXLive (входит в репозитории большинства ОС, в т.ч. Fedora, Debian, Ubuntu, Gentoo, FreeBSD, Mac OS)
+ \item[Windows.] MiKTeX (\url{http://miktex.org/})
+\end{description}
+ 
+\end{frame}
+
+%
+%
+%
+\begin{frame}{Процесс работы}
+Процесс построения документа в \emph{векторных} форматах:
+ \begin{itemize}
+  \item \texttt{test.tex}: cоздаётся текстовым редактором.
+  \item \texttt{test.dvi}: команда \texttt{latex test.tex}
+  \item \texttt{test.ps}: команда \texttt{dvips test.dvi}
+  \item \texttt{test.pdf}: команда \texttt{ps2pdf test.pdf}
+ \end{itemize}
+
+Для работы с \emph{растровой} графикой: \texttt{pdflatex test.tex} 
+
+В одном документе растровую графику с векторной совмещать нельзя.
+\end{frame}
+
+%
+%
+%
+\begin{frame}{Графические среды (IDE)}
+ \begin{itemize}
+ \item Kile (KDE, xfce; свободный)
+ \item Texmaker (*NIX, Windows, Mac OS; свободный)
+ \item WinEdt (Windows; проприетарный)
+ \item TeXShop (Mac OS; свободный)
+ \item Eclipse с плагином \TeX (*NIX, Windows, Mac OS; свободный)
+\end{itemize}
+
+Подробная сравнительная таблица: 
+
+\url{http://en.wikipedia.org/wiki/Comparison_of_TeX_editors}
+
+MiKTeX + WinEdt без необходимости настройки для Windows:
+
+\url{http://rutracker.org/forum/viewtopic.php?t=3865802}
+
+\end{frame}
+
+%
+%
+%
+\begin{frame}[fragile]{Структура документа}
+\begin{verbatim}
+\documentclass[options]{classtype}
+%
+%	Преамбула:
+%	Подключение пакетов, опций, настроек,...
+%
+\begin{document}
+%
+%	Код, описывающий содержимое документа
+%
+\end{document}
+\end{verbatim}
+
+\end{frame}
+
+%
+%
+%
+\begin{frame}[fragile]{Русификация}
+Для подключения русского языка надо добавить в преамбулу строчки:
+\begin{verbatim}
+\usepackage[Кодировка]{inputenc} 
+\usepackage[english, russian]{babel}
+\end{verbatim}
+где <<кодировка>> может принимать значения:
+\begin{itemize}
+	\item \texttt{utf8} --- универсальная многоязыковая кодировка. Кодировка текстовых файлов по умолчанию для многих ОС, в т.ч. --- Debian, Ubuntu, Mac OS. Рекомендована к использованию.
+	\item \texttt{cp1251} --- стандартная русскоязычная кодировка Windows. За её пределами не встречается.
+	\item \texttt{koi8-r} --- архаичная кодировка для *NIX систем. Сейчас практически не используется.
+\end{itemize}
+\end{frame}
+%
+%
+%
+\begin{frame}[fragile]{Команды и окружения}
+
+Все команды начинаются с символа \verb:\:
+
+Имена команд могут состоять \emph{только} из латинских букв.
+
+Служебные символы: \verb:{ } $ @ & # % _:
+
+Команды с аргументом: \verb:\commandName{Arg1}{Arg2}{Arg3}:
+
+Команды с необязательным аргументом: 
+
+\verb:\commandName[OptArg1]{Arg1}:
+
+\textit{Окружение}: набор команд, заключенных между фигурными скобками (безымянное окружение) или конструкция вида
+
+\begin{verbatim}
+\begin{envName}
+%
+%	Команды
+%
+\end{envName}
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Набор формул}
+ Строчные формулы оформляются с помощью символов долларов в начале и конце: например, код
+\verb:$\dot{x}(t) = A(t)x(t)$: породит формулу $\dot{x}(t) = A(t)x(t)$. Выносные \emph{ненумерованные} формулы получаются с помощью пар сдвоенных долларов:
+\begin{verbatim}
+$$
+\sum\limits_{k=0}^{n}\dfrac{1}{k} = c + \ln (n) + o(n)
+$$
+\end{verbatim}
+получаем
+$$
+\sum\limits_{k=0}^{n}\dfrac{1}{k} = c + \ln (n) + o(n)
+$$
+\end{frame}
+
+\begin{frame}[fragile]{Ссылочный механизм}
+ Нумерованные выносные формулы можно получать с помощью окружений \texttt{equation}, \texttt{gather}, \texttt{multline} и других. Каждое окружение предназначено для своего типа формул.
+
+Общая идея ссылочного механизма: у объекта, содержащий номер (формулы, раздела, рисунка, таблицы, \ldots) ставится команда \verb:\label{text}:, после чего за объектом закрепляется метка \verb:text:. Сослаться на объект можно многими способами: командами \texttt{ref} (просто номер), \texttt{pageref} (ссылка на страницу документы, где помещён объект) и \texttt{eqref} (для формул).
+
+\end{frame}
+
+%
+%
+%
+\begin{frame}{Домашнее задание}
+ \begin{itemize}
+	\item  Читать \cite{newllang}, стр. 11--33, 45--89.
+	\item  Установить \LaTeX.
+	\item  Составить документ, в котором содержалась бы следующая информация:
+	\begin{itemize}
+		\item Имя и фамилия автора документа;
+		\item Название дистрибутива \LaTeX, среды разработки и операционной системы, использованных для создания документа;
+		\item Пять любых теорем (лемм), обязательно содержащие формулы, по одной из курсов математического анализа, линейной алгебры, дифференциальных уравнений, теории вероятностей и дискретной математики.
+	\end{itemize}
+	и прислать его на почту \url{month_october@mail.ru} для проверки. Задание должно быть выполнено в соответствии с Требованиями по оформлению отчётов в \LaTeX.
+
+ \end{itemize}
+\end{frame}
+
+\end{document}

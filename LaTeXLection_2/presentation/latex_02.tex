@@ -1,0 +1,312 @@
+\documentclass[ mathserif]{beamer}
+\usepackage[utf8x]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{indentfirst}
+
+\RequirePackage{paralist}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amscd}
+\usepackage{bm}
+
+\newcommand*{\HM}[1]{#1\nobreak\discretionary{}{\hbox{$\mathsurround=0pt #1$}}{}}
+
+\usetheme[alternativetitlepage=true, titleline=true, bullet=circle]{Torino}
+\logo{\includegraphics[height=30px]{msu}}
+
+\usepackage{ragged2e}
+\justifying
+\renewcommand{\raggedright}{\leftskip=0pt \rightskip=0pt plus 0cm}
+
+\title[Вторая лекция по \LaTeX]{Продолжение основ работы в \LaTeX}
+\author[Кафедра СА]{Кафедра системного анализа}
+\institute{МГУ им. М.В. Ломоносова \\ Факультет вычислительной математики и кибернетики}
+\date{Сентябрь 2013}
+
+%
+%
+%
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\scalar}[2]{\left<#1,#2\right>}          %   Dot product
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}   %   Norm
+
+\DeclareMathOperator{\ArgminA}{Argmin}
+\DeclareMathOperator*{\ArgminB}{Argmin}
+
+%
+%
+%
+
+\begin{document}
+\maketitle
+%
+%
+%
+\begin{frame}[fragile]{Списки}
+ Все списки задаются командами вида:
+\begin{verbatim}
+ \begin{name}
+  \item Элемент списка 1
+  \item Элемент списка 2
+  ...
+ \end{name}
+\end{verbatim}
+Списки бывают:
+\begin{itemize}
+ \item Ненумерованыне (\texttt{itemize});
+ \item Нумерованные (\texttt{enumerate});
+ \item С описанием (\texttt{description}).
+\end{itemize}
+
+
+У команды \verb:\item: есть необязательный аргумент, который, будучи указанным, заменяет собой номер (или пульку).
+
+\end{frame}
+%
+%
+%
+\begin{frame}[fragile]{Библиография}
+ Специальный тип списка --- список источников (библиография). Он задаётся окружением \texttt{thebibliography}, у которого есть один обязательный аргумент --- максимальное число элементов в списке.
+Вместо \texttt{item} используется команда \texttt{bibitem} с одним обязательным аргументом --- ключом источника, необходимым для организации ссылок. Так, код
+\begin{verbatim}
+\begin{thebibliography}{99}
+ \bibitem{Zorich} В.А. Зорич. Математический анализ. 
+                   М.: Изд-во МЦНМО, 2007.
+\end{thebibliography}
+\end{verbatim}
+позволит ссылаться в любом месте текста на источник с помощью команды \verb:\cite{Zorich}:.
+\end{frame}
+
+
+%
+%
+%
+\begin{frame}{Многострочные формулы}
+ Везде подразумевается, что пакеты семейства \texttt{ams} подключены. 
+\begin{itemize}
+ \item \texttt{gather} --- несколько идущих подряд формул.
+ \item \texttt{multline} --- выкладки и / или преобразования, которые занимают несколько строчек.
+ \item \texttt{align}, \texttt{aligned} --- системы (однотипных) уравнений.
+ \item \texttt{pmatrix}, \texttt{vmatrix}, \texttt{bmatrix} --- набор матриц.  
+ \item \texttt{cases} --- набор ситуаций вида <<если, то>>.
+\end{itemize}
+Каждое окружение надо использовать для решения задач, ему отвечающих.
+\end{frame}
+%
+%
+%
+\begin{frame}[fragile]{Определения, теоремы и т.д.: пакет \texttt{amsthm}}
+ 
+Сначала в преамбуле задаются новые команды, опредедяющие доступные окружения:
+
+\verb:\theoremstyle{stylename} % задает текущий стиль:
+
+\verb:\newtheorem{envName}{Открывающее слово}:
+
+Каждая <<теорема>> имеет свой собственный счётчик и поддерживает ссылочный механизм. 
+
+Стили можно задавать командой \verb:\newtheoremstyle:.
+
+Использование в тексте:
+\begin{verbatim}
+ \begin{envName}
+         Текст, текст, текст\ldots
+ \end{envName}
+\end{verbatim}
+\end{frame}
+%
+%
+%
+\begin{frame}[fragile]{Новые команды}
+ Если какая-то конструкция часто повторяется в тексте, то её лучше вынести в отдельную команду. Новые команды задаются в преамбуле:
+
+\verb:\newcommand{\comName}{code}: --- команда без аргументов,
+
+\verb:\newcommand{\comName}[nargs]{code}: --- команда с \texttt{nargs} аргументами.
+
+После определения новыми командами можно пользоваться точно также, как и стандартными.
+\end{frame}
+%
+%
+%
+\begin{frame}[fragile]
+\begin{itemize}
+\item Множество вещественных чисел:
+
+\verb:\newcommand{\R}{\ensuremath{\mathbb{R}}}:
+
+Результат: \R\  (\verb:\R:). Архаичный вариант, до сих пор встречающийся в литературе: $\mathrm{I\!R}$ (\verb:\mathrm{I\!R}:)
+\item Норма:
+
+\verb:\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}: Скобки автоматически масштабируются:
+$$
+\norm{a + b},\ \norm{\int\limits_a^b f(x)\,dx},\ \norm{\dfrac{1}{42}}
+$$
+\item Скалярное произведение:
+
+\verb:\newcommand{\scalar}[2]{\left<#1,#2\right>}:
+ 
+Использование: \verb:\scalar{A}{B}:
+\end{itemize}
+\end{frame}
+%
+%
+%
+\begin{frame}[fragile]{Математические операторы}
+Предположим, что мы хотим записать математическую команду <<множество минимизаторов>>. 
+\begin{itemize}
+\item В лоб: \verb:Argmin f(x): даёт $Argmin f(x)$.
+
+\item Прямой шрифт: \verb:\mathrm{Argmin} f(x): даёт $\mathrm{Argmin} f(x)$.
+
+\item Отбивка: \verb:\mathrm{Argmin}\,f(x): даёт $\mathrm{Argmin}\,f(x)$.
+
+\end{itemize}
+А если мы хотим записать $\ArgminB\limits_{x\in X}f(x)$?
+
+\end{frame}
+%
+%
+%
+\begin{frame}[fragile]{\texttt{DeclareMathOperator}}
+Решение: команды 
+\begin{itemize}
+\item \verb:\DeclareMathOperator{\Argmin}{Argmin}: --- для постановки индексов типа $\ArgminA\limits_{x\in X}$,
+
+\item \verb:\DeclareMathOperator*{\Argmin}{Argmin}: --- позволяет использовать команду \verb:limits::
+\begin{itemize}
+\item \verb:\Argmin_{x\in X}: : $\ArgminB_{x\in X}$
+
+\item \verb:\Argmin\limits_{x\in X}: : $\ArgminB\limits_{x\in X}$
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+%
+%
+%
+\begin{frame}[fragile]{Переопределение существующих команд}
+ Ни \texttt{newcommand}, ни \texttt{DeclareMathOperator} не позволяют переопределять уже существующие команды. Для этого служит команда 
+\texttt{renewcommand}. Примеры:
+\begin{itemize}
+ \item \verb:\renewcommand{\epsilon}{\varepsilon}: : замена $\epsilon$ на $\varepsilon$.
+ \item \verb:\renewcommand{\phi}{\varphi}: : замена $\phi$ на $\varphi$.
+ \item \verb:\renewcommand{\le}{\leqslant}: : замена $\le$ на $\leqslant$.
+ \item \verb:\renewcommand{\ge}{\geqslant}: : замена $\ge$ на $\geqslant$.
+ \item \verb:\renewcommand{\baselinestretch}{2}: : двойной межстрочный интервал во всём тексте.
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]{Замена команд}
+ Предположим, что мы хотим, чтобы вместо $\phi$ подставлялось $\varphi$, но не хотим терять доступ к исходному символу.
+
+Что сделает следующий код?
+
+\begin{verbatim}
+\newcommand{\tmp}{\phi}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\varphi}{\tmp}
+\end{verbatim}
+
+
+\end{frame}
+\begin{frame}[fragile]{Низкоуровневая работа с макросами}
+ Можно поступить так:
+\begin{verbatim}
+\let\temp\phi
+\let\phi\varphi
+\let\varphi\temp
+\end{verbatim}
+
+Или так:
+\begin{verbatim}
+\expandafter\mathchardef\expandafter\varphi\number
+\expandafter\phi\expandafter\relax
+\expandafter\mathchardef\expandafter\phi\number\varphi
+\end{verbatim}
+(Это одна команда.)
+
+\end{frame}
+
+%
+%
+%
+\begin{frame}[fragile]{Размеры печатной области}
+ По умолчанию у латеховских документов довольно приличные поля, и может возникнуть желание изменить их размер.
+
+\textbf{Метод 1.} Задание всех параметров в преамбуле вручную:
+\begin{verbatim}
+\oddsidemargin=0cm
+\evensidemargin=0cm
+\topmargin=0cm
+\textwidth=16.5cm
+\headheight=0cm
+\headsep=0cm
+\topskip=0cm
+\hoffset=0cm
+\voffset=0.1cm
+\textheight=25cm
+\end{verbatim}
+См. стр.166 в Львовском.
+\end{frame}
+%
+%
+%
+\begin{frame}[fragile]
+ \textbf{Метод 2.} Использовать пакет \texttt{geometry}:
+
+\begin{verbatim}
+ \usepackage[left=2cm,right=2cm,
+    top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\end{verbatim}
+
+Модель страницы можно посмотреть в описании пакета (прилагается в материалах лекции).
+\end{frame}
+%
+%
+%
+\begin{frame}[fragile]{Добавление графики}
+
+В преамбулу добавить \verb:\usepackage[dvips]{graphicx}: для векторной графики и \verb:\usepackage[pdftex]{graphicx}: для растровой.
+
+После этого команда
+
+\verb:\includegraphics{fileNameWithoutExtension}:
+
+вставит на своё место в документе графический файл из своего аргумента.
+
+Полезные опции:
+
+\verb:\includegraphics[keepaspectratio, width=0.8\textwidth]{file}:
+
+\end{frame}
+
+\begin{frame}[fragile]{Плавающие объекты}
+Плавающий объект --- объект, расположение которого в документе остаётся на усмотрение транслятора. 
+
+Для корректной работы в преамбуле надо подключить пакет \texttt{float}. Содержимое объекта помещается внутрь окружения \texttt{figure}:
+
+\begin{verbatim}
+\begin{figure}[пожелание]
+   % Содержимое: картинка (или несколько картинок)
+   \caption{Подпись}
+\end{figure}
+\end{verbatim}
+Пожелание: одна буква из \texttt{t, b, p, h, T, B, P, H}.
+\end{frame}
+
+
+%
+%
+%
+\begin{frame}{Домашнее задание}
+\begin{itemize}
+ \item Читать Львовского, стр. 98--123, 155-173, 185--193, 234--267.
+ \item  Набрать страницу с номером, выпавшим Вам. Набор должен быть осуществлён в соответствии с Требованиям к Набору Отчётов. Номера формул можно ставить своими. Результат отправить на почту \url{month_october@mail.ru} для проверки.
+\end{itemize}
+
+\end{frame}
+
+\end{document}
